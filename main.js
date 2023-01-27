@@ -21,39 +21,40 @@ const chessBoard = () => {
         })
     }
 
-    function findReverse(start, end, reversePath){
+    function reversePath(start, end, nodeParents){
         const path = [end];
         let node = end;
 
         while(node != start){
-            node = reversePath.get(node);
+            node = nodeParents.get(node);
             path.unshift(node);
         }
         return path;
     }
 
     function convertInput(str){
-        console.log(str);
-
-        //d4 > f8
-        //3,3 > 5,7
+        //Allows user to input in normal chess input style
+        const firstNum = str.charCodeAt(0) - 97;
+        const secondNum = parseInt(str[1]) - 1;
+        return `[${firstNum},${secondNum}]`;
     }
 
     function bfs(start, end){
         start = convertInput(start);
-        end = convertInput(end); 
+        end = convertInput(end);
+
         let visited = new Map();
-        let reversePath = new Map();
+        let nodeParents = new Map();
         let queue = [start];
         
         while(queue.length > 0){
             const node = queue.shift();
-            if(node == end) return findReverse(start, end, reversePath);
+            if(node == end) return reversePath(start, end, nodeParents);
 
             if(node && !visited.has(node)){
                 visited.set(node);
                 board.get(node).forEach(adj => {
-                    if(!reversePath.has(adj)) reversePath.set(adj,node);
+                    if(!nodeParents.has(adj)) nodeParents.set(adj,node);
                     queue.push(adj)
                 });
             }
@@ -61,21 +62,21 @@ const chessBoard = () => {
     }
 
     function display(path){
+        //Converts back to normal chess input style
         let convertedPath = '';
         path.forEach(node => {
             const letter = String.fromCharCode(97 + parseInt(node[1]));
             const newNum = parseInt(node[3]) + 1;
             convertedPath += `${letter}${newNum} > `;
         })
-        convertedPath = convertedPath.substring(0, convertedPath.length - 3);
-        console.log(convertedPath)
+        return convertedPath.substring(0, convertedPath.length - 3);
     }
 
     (function init(){
         addVertices();
         board.forEach(addEdges);  
-        const path = bfs(`d4`,`f8`);
-        display(path);
+        const path = bfs(`a5`,`f5`);
+        console.log(display(path));
     }());
 }
 
