@@ -1,27 +1,59 @@
-const chessBoard = () => {
-    const board = new Map();
-    
-    function addVertices(){
+class undirectedGraph{
+    constructor(){
+        this.board = new Map();
+        this.addNodes();
+        this.addEdges();
+    }
+
+    addNodes(){
         for(let i = 0; i < 8; i++){
             for(let j = 0; j < 8; j++){
-                board.set(`[${i},${j}]`, []);
+                this.board.set(`[${i},${j}]`, []);
             }
         }
     }
 
-    function addEdges(value, key, map){
-        const offsets = [[1,2],[2,1],[1,-2],[2,-1],[-1,-2],[-2,-1],[-1,2],[-2,1]];
-        const posX = parseInt(key[1]);
-        const posY = parseInt(key[3]);
+    addEdges(){
+        const knightMovement = [[1,2],[2,1],[1,-2],[2,-1],[-1,-2],[-2,-1],[-1,2],[-2,1]];
+        for(const key of this.board.keys()){
+            const values = this.board.get(key);
+            const moveX = parseInt(key[1]);
+            const moveY = parseInt(key[3]);
 
-        offsets.forEach(offset =>{
-            if(posX + offset[0] >= 0 && posX + offset[0] <= 7 && posY + offset[1] >= 0 && posY + offset[1] <= 7){
-                board.get(key).push(`[${posX + offset[0]},${posY + offset[1]}]`); 
-            }
-        })
+            knightMovement.forEach(offset =>{
+                const posX = moveX + offset[0];
+                const posY = moveY + offset[1];
+                if(posX >= 0 && posX <= 7 && posY >= 0 && posY <= 7){
+                    values.push(`[${posX},${posY}]`); 
+                }
+            })
+        }
     }
 
-    function reversePath(start, end, nodeParents){
+    findShortestPath(start, end){
+        //Uses breadth-first search
+        start = this.convertInput(start);
+        end = this.convertInput(end);
+
+        const visited = new Map();
+        const nodeParents = new Map(); //keeps track of parent of each value so we can reverse the path
+        const queue = [start];
+        
+        while(queue.length > 0){
+            const node = queue.shift();
+            if(node == end) return this.reversePath(start, end, nodeParents);
+            if(!node && visited.has(node)) continue;
+
+            visited.set(node);
+            this.board.get(node).forEach(value => {
+                if(!nodeParents.has(value)) nodeParents.set(value,node);
+                queue.push(value);
+            });
+            
+        }
+    }
+
+    reversePath(start, end, nodeParents){
         const path = [end];
         let node = end;
 
@@ -32,53 +64,26 @@ const chessBoard = () => {
         return path;
     }
 
-    function convertInput(str){
-        //Allows user to input in normal chess input style
+    convertInput(str){
+        //Converts chess nomenclature into numbers for code array
         const firstNum = str.charCodeAt(0) - 97;
         const secondNum = parseInt(str[1]) - 1;
         return `[${firstNum},${secondNum}]`;
     }
 
-    function bfs(start, end){
-        start = convertInput(start);
-        end = convertInput(end);
-
-        let visited = new Map();
-        let nodeParents = new Map();
-        let queue = [start];
-        
-        while(queue.length > 0){
-            const node = queue.shift();
-            if(node == end) return reversePath(start, end, nodeParents);
-
-            if(node && !visited.has(node)){
-                visited.set(node);
-                board.get(node).forEach(adj => {
-                    if(!nodeParents.has(adj)) nodeParents.set(adj,node);
-                    queue.push(adj)
-                });
-            }
-        }
-    }
-
-    function display(path){
-        //Converts back to normal chess input style
-        let convertedPath = '';
+    convertOutput(path){
+        //Converts back to normal chess nomenclature
+        let convertedPath = [];
         path.forEach(node => {
             const letter = String.fromCharCode(97 + parseInt(node[1]));
             const newNum = parseInt(node[3]) + 1;
-            convertedPath += `${letter}${newNum} > `;
+            convertedPath.push(`${letter}${newNum}`);
         })
-        return convertedPath.substring(0, convertedPath.length - 3);
-    }
-
-    (function init(){
-        addVertices();
-        board.forEach(addEdges);  
-        const path = bfs(`a5`,`f5`);
-        console.log(display(path));
-    }());
+        return convertedPath;
+    }   
 }
 
 
-chessBoard();
+const chessboard = new undirectedGraph();
+const path = chessboard.findShortestPath(`a5`,`f5`);
+console.log(chessboard.convertOutput(path))
