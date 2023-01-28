@@ -30,7 +30,7 @@ class undirectedGraph{
         }
     }
 
-    findShortestPath(start, end){
+    findShortestPath(start = `a5`, end = `f6`){
         //Uses breadth-first search
         start = this.convertInput(start);
         end = this.convertInput(end);
@@ -66,6 +66,7 @@ class undirectedGraph{
 
     convertInput(str){
         //Converts chess nomenclature into numbers for code array
+        str = str.toLowerCase();
         const firstNum = str.charCodeAt(0) - 97;
         const secondNum = parseInt(str[1]) - 1;
         return `[${firstNum},${secondNum}]`;
@@ -83,7 +84,4 @@ class undirectedGraph{
     }   
 }
 
-
-const chessboard = new undirectedGraph();
-const path = chessboard.findShortestPath(`a5`,`f5`);
-console.log(chessboard.convertOutput(path))
+export default undirectedGraph;

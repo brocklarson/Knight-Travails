@@ -1,0 +1,143 @@
+/*make sizing dynamic so that all object dynamically fit to board size*/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.wrapper{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    margin: 24px 0;
+}
+
+h1 + p{
+    margin-bottom: 24px;
+    width: 32rem;
+    text-align: center;
+}
+
+
+/*CHESS BOARD*/
+
+.board-outer{
+    width: min-content;
+    background: #462921;
+    display: grid;
+    grid-template-areas: 
+        "top top top"
+        "left board right"
+        "bottom bottom bottom";
+}
+
+.board-container{
+    grid-area: board;
+    display: grid;
+    grid-template-columns: repeat(8, 4rem);
+    grid-template-rows: repeat(8, 4rem);
+}
+
+.box{
+    background-color: #b5915f;
+}
+
+.box:nth-child(-2n+8), 
+.box:nth-child(8) ~ div:nth-child(-2n+15), 
+.box:nth-child(16) ~ div:nth-child(-2n+24), 
+.box:nth-child(24) ~ div:nth-child(-2n+31), 
+.box:nth-child(32) ~ div:nth-child(-2n+40), 
+.box:nth-child(40) ~ div:nth-child(-2n+47), 
+.box:nth-child(48) ~ div:nth-child(-2n+56), 
+.box:nth-child(56) ~ div:nth-child(-2n+63){
+  background-color: #441a03;
+}
+
+.top, .bottom{
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 3rem;
+    height: 3rem;
+}
+
+.top{grid-area: top;}
+.bottom{grid-area: bottom;}
+.left{grid-area: left;}
+.right{grid-area: right;}
+
+
+.left, .right{
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 3rem;
+}
+
+/* INPUT */
+.input-container{
+    margin: 24px 0;
+    display: flex;
+    justify-content: space-around;
+    width: 38rem;
+}
+
+label{
+    font-size: 20px;
+}
+
+input{
+    font-size: 20px;
+    width: 2rem;
+    padding: 0px 4px;
+    border-radius: 5px;
+    outline: none;
+    border: solid 1px black;
+    text-align: center;
+}
+
+button{
+    background: none;
+    border-radius: 5px;
+    outline: none;
+    border: solid 1px black;
+    cursor: pointer;
+    padding: 2px 4px;
+    font-size: 20px;
+}
+
+/* FOOTER */
+
+footer {
+    align-items: center;
+    background-color: white;
+    bottom: 0;
+    color: black;
+    display: flex;
+    font-family: sans-serif;
+    font-size: 1rem;
+    gap: 10px;
+    height: 5vh;
+    justify-content: center;
+    padding: 8px 0 8px 0;
+    position: fixed;
+    width: 100%;
+}
+
+.fa-github {
+    color: black;
+    font-size: 1rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
+}
