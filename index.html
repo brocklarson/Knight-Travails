@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Knight Travails</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Knight Travails Project for The Odin Project">
+    <meta name="author" content="Brock Larson">
+
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://kit.fontawesome.com/4c536a6bd5.js" crossorigin="anonymous"></script>
+    <script src="./index.bundle.js" defer></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Knight Travails</h1>
+        <p>Find the shortest path for a chess knight between any two squares on the chessboard!</p>
+
+        <div class="board-outer">
+            <div class="top">
+                <p>a</p><p>b</p><p>c</p><p>d</p><p>e</p><p>f</p><p>g</p><p>h</p>
+            </div>
+            <div class="left">
+                <p>8</p><p>7</p><p>6</p><p>5</p><p>4</p><p>3</p><p>2</p><p>1</p>
+            </div>
+            <div id="boardContainer" class="board-container"></div>
+            <div class="right">
+                <p>8</p><p>7</p><p>6</p><p>5</p><p>4</p><p>3</p><p>2</p><p>1</p>
+            </div>
+            <div class="bottom">
+                <p>a</p><p>b</p><p>c</p><p>d</p><p>e</p><p>f</p><p>g</p><p>h</p>
+            </div>
+        </div>
+
+        <div id="inputContainer" class="input-container">
+            <div>
+                <label for="start">Start:</label>
+                <input type="text" name="start" id="startInput" placeholder="a5" autocomplete="off"/>
+            </div>
+            <div>
+                <label for="end">End:</label>
+                <input type="text" name="end" id="endInput" placeholder="f6" autocomplete="off"/>
+            </div>
+            <button id="searchBtn">Search!</button>
+        </div>
+    </div>
+
+    <footer id="footer" class="footer">
+        <p>Brock Larson &copy; 2023 </p>
+        <a href="https://github.com/brocklarson" target="_blank">
+            <i class="fab fa-github"></i></a>
+    </footer>
+</body>
+
+</html>
