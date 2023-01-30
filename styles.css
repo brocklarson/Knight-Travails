@@ -20,7 +20,7 @@ h1{
 h1 + p{
     margin-bottom: 24px;
     width: 32rem;
-    text-align: center;
+    text-align: center; 
 }
 
 
@@ -28,7 +28,7 @@ h1 + p{
 
 .board-outer{
     width: min-content;
-    background: #462921;
+    background: #8d6b61;
     display: grid;
     grid-template-areas: 
         "top top top"
@@ -60,7 +60,6 @@ h1 + p{
 
 .top, .bottom{
     display: flex;
-    color: white;
     align-items: center;
     justify-content: space-around;
     padding: 0 3rem;
@@ -75,7 +74,6 @@ h1 + p{
 
 .left, .right{
     display: flex;
-    color: white;
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
@@ -112,6 +110,20 @@ button{
     cursor: pointer;
     padding: 2px 4px;
     font-size: 20px;
+    height: min-content;
+}
+
+/* ERROR */
+
+.error{
+    display: none;
+    color: red;
+    margin: 4px 0;
+    padding: 4px;
+}
+
+.error.active{
+    display: block;
 }
 
 /* FOOTER */
