@@ -48,6 +48,13 @@ const chessboard = (() => {
         return value;   
     }
 
+    function getInput(){
+        const start = validateInput(startInput.value, startError);
+        const end = validateInput(endInput.value, endError);
+        if (start == null || end == null) return null;
+        return {start, end};
+    }
+
     const delay = ms => new Promise(res => {
         setTimeout(res, ms)
     });
@@ -67,17 +74,21 @@ const chessboard = (() => {
         }
     }
 
-    function resetSquares(){
+    function resetChessboard(){
         Array.from(squares).forEach(square => square.style.border = "");
     }
 
-    function handleClick(){
-        resetSquares();
-        const start = validateInput(startInput.value, startError);
-        const end = validateInput(endInput.value, endError);
-        if (start == null || end == null) return;
-        const path = chessboard.findShortestPath(start, end);
-        highlightSquares(path)
-        console.log(chessboard.convertOutput(path));
+    async function handleClick(){
+        button.disabled = true;
+        resetChessboard();
+
+        const input = getInput();
+        if(input) {
+            const path = chessboard.findShortestPath(input.start, input.end);
+            await highlightSquares(path);
+            console.log(chessboard.convertOutput(path));
+        }
+        
+        button.disabled = false;
     }
 })();
