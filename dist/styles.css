@@ -1,16 +1,15 @@
-/*make sizing dynamic so that all object dynamically fit to board size*/
 *{
+    font-family: sans-serif;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
 }
 
 .wrapper{
-    height: 100vh;
-    width: 100vw;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 h1{
@@ -19,17 +18,17 @@ h1{
 
 h1 + p{
     margin-bottom: 24px;
+    text-align: center;
     width: 32rem;
-    text-align: center; 
 }
 
 
 /*CHESS BOARD*/
 
 .board-outer{
-    width: min-content;
-    background: #8d6b61;
+    background: #583e36;
     display: grid;
+    width: min-content;
     grid-template-areas: 
         "top top top"
         "left board right"
@@ -37,14 +36,25 @@ h1 + p{
 }
 
 .board-container{
-    grid-area: board;
     display: grid;
+    grid-area: board;
     grid-template-columns: repeat(8, 4rem);
     grid-template-rows: repeat(8, 4rem);
 }
 
 .box{
+    align-items: center;
     background-color: #b5915f;
+    display: flex;
+    justify-content: center;
+}
+
+img{
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
+    height: 90%;
+    width: auto;
+    z-index: 100;
 }
 
 .box:nth-child(-2n+8), 
@@ -59,32 +69,41 @@ h1 + p{
 }
 
 .top, .bottom{
-    display: flex;
     align-items: center;
+    color: white;
+    display: flex;
+    height: 3rem;
     justify-content: space-around;
     padding: 0 3rem;
-    height: 3rem;
 }
 
-.top{grid-area: top;}
-.bottom{grid-area: bottom;}
-.left{grid-area: left;}
-.right{grid-area: right;}
-
-
 .left, .right{
-    display: flex;
     align-items: center;
-    justify-content: space-around;
+    color: white;
+    display: flex;
     flex-direction: column;
+    justify-content: space-around;
     width: 3rem;
+}
+
+.top{
+grid-area: top;
+}
+.bottom{
+grid-area: bottom;
+}
+.left{
+grid-area: left;
+}
+.right{
+grid-area: right;
 }
 
 /* INPUT */
 .input-container{
-    margin: 24px 0;
     display: flex;
     justify-content: space-around;
+    margin: 24px 0;
     width: 38rem;
 }
 
@@ -93,31 +112,31 @@ label{
 }
 
 input{
-    font-size: 20px;
-    width: 2rem;
-    padding: 0px 4px;
     border-radius: 5px;
-    outline: none;
     border: solid 1px black;
+    font-size: 20px;
+    outline: none;
+    padding: 0px 4px;
     text-align: center;
+    width: 2rem;
 }
 
 button{
     background: none;
     border-radius: 5px;
-    outline: none;
     border: solid 1px black;
     cursor: pointer;
-    padding: 2px 4px;
     font-size: 20px;
     height: min-content;
+    outline: none;
+    padding: 2px 4px;
 }
 
 /* ERROR */
 
 .error{
-    display: none;
     color: red;
+    display: none;
     margin: 4px 0;
     padding: 4px;
 }
@@ -152,4 +171,55 @@ footer {
 
 .fa-github:hover {
     transform: rotate(360deg) scale(1.2);
+}
+
+@media only screen and (max-width: 650px) {
+
+    h1 + p{
+        width: 25rem;
+    }
+
+    .board-container{
+        grid-area: board;
+        display: grid;
+        grid-template-columns: repeat(8, 3rem);
+        grid-template-rows: repeat(8, 3rem);
+    }
+
+    .top, .bottom{
+        padding: 0 2rem;
+        height: 2rem;
+    }
+
+    .left, .right{
+        width: 2rem;
+    }
+
+    .input-container{
+        width: 28rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+
+    h1 + p{
+        width: 20rem;
+    }
+
+    .board-container{
+        grid-area: board;
+        display: grid;
+        grid-template-columns: repeat(8, 2.25rem);
+        grid-template-rows: repeat(8, 2.25rem);
+    }
+
+    .input-container{
+        width: 22rem;
+    }
+}
+
+@media only screen and (max-height: 700px) {
+    .wrapper{
+        margin-bottom: 10vh;
+    }
 }

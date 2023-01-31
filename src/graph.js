@@ -30,7 +30,7 @@ class undirectedGraph{
         }
     }
 
-    findShortestPath(start = `a5`, end = `f6`){
+    findShortestPath(start = `a2`, end = `h4`){
         //Uses breadth-first search
         start = this.convertInput(start);
         end = this.convertInput(end);

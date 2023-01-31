@@ -9,7 +9,6 @@ const createChessboard = () => {
             container.appendChild(square);
         }
     }
-
 }
 
 export default createChessboard;
